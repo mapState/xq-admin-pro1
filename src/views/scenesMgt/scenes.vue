@@ -2,7 +2,7 @@
   <div class="main">
     <el-button type="primary" @click="addScenes">新增场景</el-button>
     <el-table :data="tableData" style="width: 100%">
-      <el-table-column label="序号" align="center" prop="id" width="100" />
+      <el-table-column label="序号" align="center" prop="orderNum" width="100" />
       <el-table-column align="center" label="场景缩略图" width="100">
         <template slot-scope="scope">
           <a :href="scope.row.fileUrl" target="_blank">
@@ -57,6 +57,17 @@
           <el-input v-model="form.fileDescription" type="textarea" placeholder="请输入场景描述" />
         </el-form-item>
         <el-form-item
+          label="场景排序"
+          :label-width="formLabelWidth"
+          placeholder="请输入排序数字"
+          prop="orderNum"
+          :rules="[{
+            required: true, message: '排序数字不能为空', trigger: 'blur'
+          }]"
+        >
+          <el-input v-model="form.orderNum" autocomplete="off" />
+        </el-form-item>
+        <el-form-item
           label="场景图"
           prop="fileUrl"
           :rules="[{
@@ -101,7 +112,8 @@ export default {
       form: {
         fileDescription: '',
         fileName: '',
-        fileUrl: ''
+        fileUrl: '',
+        orderNum:''
       },
       qiniuData: {
         key: '',

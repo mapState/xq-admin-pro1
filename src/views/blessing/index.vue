@@ -91,6 +91,7 @@ export default {
   },
   mounted() {
     this.getList()
+    this.getTotal()
   },
   methods: {
     getList() {
@@ -103,8 +104,16 @@ export default {
           messageType: 1// 云祝福
         }
       }).then((res) => {
-        this.total = res.count
         this.tableData = res.data
+        console.log(res)
+      })
+    },
+    getTotal(){
+      request({
+        url: '/question/getMessageCount',
+        method: 'get',
+      }).then((res) => {
+        this.total=res.data
         console.log(res)
       })
     },
