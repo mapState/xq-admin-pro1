@@ -34,7 +34,7 @@
         prop="user.userName"
         label="用户昵称"
       />
-      <el-table-column
+      <!-- <el-table-column
         align="center"
         prop="user.receiveName"
         label="用户姓名"
@@ -50,11 +50,11 @@
           <span>{{ scope.row.user.type===0?'系统':(scope.row.user.type===1?'学子':(scope.row.user.type===2?'教工':'游客')) }}</span>
           </el-button>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column
-        align="祝福语"
+        align="center"
         prop="messageContent"
-        label="用时"
+        label="祝福语"
       />
       <el-table-column
         align="center"
@@ -101,19 +101,19 @@ export default {
         params: {
           pageNo: this.pageNo,
           pageSize: this.pageSize,
-          messageType: 1// 云祝福
+          type: 1// 云祝福
         }
       }).then((res) => {
         this.tableData = res.data
         console.log(res)
       })
     },
-    getTotal(){
+    getTotal() {
       request({
         url: '/question/getMessageCount',
-        method: 'get',
+        method: 'get'
       }).then((res) => {
-        this.total=res.data
+        this.total = res.data
         console.log(res)
       })
     },

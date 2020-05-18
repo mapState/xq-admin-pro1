@@ -33,19 +33,19 @@
         prop="userName"
         label="用户名称"
       />
-      <el-table-column
+      <!-- <el-table-column
         align="center"
         label="用户身份"
       >
         <template slot-scope="scope">
           <span>{{ scope.row.type===0?'系统':(scope.row.type===1?'教工':'游客') }}</span>
         </template>
-      </el-table-column>
-      <el-table-column
+      </el-table-column> -->
+      <!-- <el-table-column
         align="center"
         prop="receiveName"
         label="用户姓名"
-      />
+      /> -->
       <el-table-column
         align="center"
         prop="receivePhone"

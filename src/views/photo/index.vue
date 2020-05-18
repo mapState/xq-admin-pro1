@@ -15,7 +15,7 @@
       <el-table-column
         label="序号"
         align="center"
-        prop="a"
+        type="index"
         width="100"
       />
       <el-table-column
@@ -24,34 +24,41 @@
         width="90"
       >
         <template slot-scope="scope">
-          <a :href="scope.row.img" target="_blank">
-            <img :src="scope.row.img" alt="头像" class="img">
+          <a :href="scope.row.userImage" target="_blank">
+            <img :src="scope.row.userImage" alt="头像" class="img">
           </a>
         </template>
       </el-table-column>
       <el-table-column
         align="center"
-        prop="address"
+        prop="user.userName"
         label="用户昵称"
       />
-      <el-table-column
+      <!-- <el-table-column
         align="center"
-        prop="address"
+        prop="user.receiveName"
         label="用户姓名"
       />
       <el-table-column
         align="center"
         prop="address"
-        label="用户性别"
-      />
-      <el-table-column
-        align="center"
-        prop="address"
         label="其他信息"
+      >
+        <template slot-scope="scope">
+          <span>{{ scope.row.user.joinDepartment }}</span>
+          <span>{{ scope.row.user.joinYear }}</span>
+          <span>{{ scope.row.user.type===0?'系统':(scope.row.user.type===1?'学子':(scope.row.user.type===2?'教工':'游客')) }}</span>
+          </el-button>
+        </template>
+      </el-table-column> -->
+      <el-table-column
+        align="center"
+        prop="messageContent"
+        label="祝福语"
       />
       <el-table-column
         align="center"
-        prop="address"
+        prop="createDate"
         label="创建时间"
       />
 
@@ -84,21 +91,30 @@ export default {
   },
   mounted() {
     this.getList()
+    this.getTotal()
   },
   methods: {
     getList() {
       request({
-        url: '/question/getPhotoCount',
+        url: '/leaveMessage/list',
         method: 'get',
         params: {
           pageNo: this.pageNo,
           pageSize: this.pageSize,
-          messageType: 2// 云祝福
+          type: 2// 云祝福
         }
       }).then((res) => {
+        this.tableData = res.data
         console.log(res)
+      })
+    },
+    getTotal() {
+      request({
+        url: '/question/getPhotoCount',
+        method: 'get'
+      }).then((res) => {
         this.total = res.data
-        // this.tableData=res.data
+        console.log(res)
       })
     },
     search() {
@@ -109,7 +125,7 @@ export default {
           type: 'warning'
         })
       } else {
-        // this.getList()
+        this.getList()
       }
     },
     handleSizeChange(val) {
